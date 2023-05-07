@@ -23,7 +23,7 @@ SaposenBoardの動作確認用プログラムです
 
 ![image](https://user-images.githubusercontent.com/87698678/236664076-1a32972a-56de-4dd9-baef-e2aac3f22479.png)
 
-4. Cloneボタンを押すとリポジトリのクローンとライブラリの導入が始まるので、しばらく待つ
+4. `Add project`ボタンを押すとリポジトリのクローンとライブラリの導入が始まるので、しばらく待つ
 
 5. Active projectとBuild targetが画像と同じになっているか確認して、トンカチ(?)のマークを押す
 
