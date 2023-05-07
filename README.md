@@ -9,7 +9,7 @@ SaposenBoardの動作確認用プログラムです
 
 [Keil Studio Cloud](https://studio.keil.arm.com/)
 
-専用アカウントが必要なので、初めて使う人は[ここ](https://studio.keil.arm.com/auth/login/)から`Sign up`を選択してアカウント作ってください
+専用アカウントが必要なので、初めて使う人は[ここ](https://os.mbed.com/accounts/login/)から`Create an account`を選択してアカウント作ってください
 
 ## Download
 
