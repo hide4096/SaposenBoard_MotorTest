@@ -82,7 +82,7 @@ void FetchLineSensor(){
 }
 
 //ここの値を書き換える
-const float PGain = 2.0,IGain = 0.005,DGain = 0.1;
+const float PGain = 2.0,IGain = 0.005,DGain = 1.0;
 
 uint16_t speed = 0.;
 long I_diff = 0.,past_diff = 0.;
@@ -95,8 +95,9 @@ void pid(){
 
     int diff = line_avr_r - line_avr_l;
 
-    int speed_l = speed + (diff*PGain+I_diff*IGain+(diff - past_diff)*DGain);
-    int speed_r = speed - (diff*PGain+I_diff*IGain+(diff - past_diff)*DGain);
+    int rotate = diff*PGain + I_diff*IGain + (diff - past_diff)*DGain;
+    int speed_l = speed + rotate;
+    int speed_r = speed - rotate;
 
     past_diff = diff;
     I_diff+=diff;
@@ -134,7 +135,7 @@ int main(){
     while(sw);
 
     motor_is_disable = false;
-    speed = 180;
+    speed = 150;
 
     osStatus st_runpid = run_pid.start(linetrace);
     loop1ms.attach_us(&flip1ms,1000);
