@@ -4,7 +4,7 @@
 #include <math.h>
 
 #define PI 3.141592
-#define I_MAX 1000
+#define I_MAX 100
 
 /*
     モータ制御ピン
@@ -40,6 +40,10 @@ Thread run_pid(osPriorityRealtime,1024);
 Semaphore running(1);
 Ticker loop1ms;
 
+//ここの値を書き換える
+const float PGain = 2.0,IGain = 0.001,DGain = 0.1;
+const uint16_t max_speed = 300;
+
 bool motor_is_disable = true;
 
 void ControlMotor(int width_r,int width_l){
@@ -55,6 +59,11 @@ void ControlMotor(int width_r,int width_l){
     else if(width_r < -1000) width_r = -1000;
     if(width_l > 1000) width_l = 1000;
     else if(width_l < -1000) width_l = -1000;
+
+    if(width_r > max_speed) width_r = max_speed;
+    else if(width_r < -max_speed) width_r = -max_speed;
+    if(width_l > max_speed) width_l = max_speed;
+    else if(width_l < -max_speed) width_l = -max_speed;
 
     if(width_l>0){
         MOT1_IN1.pulsewidth_us(0);
@@ -81,10 +90,7 @@ void FetchLineSensor(){
     line_l2 = adc4.read_u16()>>4;
 }
 
-//ここの値を書き換える
-const float PGain = 2.0,IGain = 0.005,DGain = 1.0;
-
-uint16_t speed = 0.;
+uint16_t speed = 0;
 long I_diff = 0.,past_diff = 0.;
 
 void pid(){
@@ -135,7 +141,7 @@ int main(){
     while(sw);
 
     motor_is_disable = false;
-    speed = 150;
+    speed = 200;
 
     osStatus st_runpid = run_pid.start(linetrace);
     loop1ms.attach_us(&flip1ms,1000);
